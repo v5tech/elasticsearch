@@ -1,0 +1,96 @@
+/*
+	All Modules
+*/
+	.module {
+
+	}
+
+		.module h4 span{
+			cursor : pointer;
+			margin-left : 10px;
+		}
+
+		.module h4 span.module-info-ok {
+			cursor: default;
+			color: #5cb85c;
+		}
+
+		.module h4 span.module-info-ko {
+			cursor: default;
+			color: #d9534f;
+		}
+
+[draggable=true]{
+    cursor: move;
+}
+
+[draggable=true]:hover{
+	border: dashed 2px #428bca; /* CSS3 */
+}
+
+.unlock [type="trash"] [dropzone] {
+	box-shadow: none;
+}
+
+.unlock [dropzone]{
+	box-shadow:0 0 5px #DDDDDD;
+    transition:
+        box-shadow linear 0.2s,
+        background-color linear 0.2s;
+}
+
+/*
+	Log modules
+*/
+	.log-console {
+		height: 200px;
+		overflow-y: auto;
+		padding : 2px;
+		border: #eeeeee 1px solid;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+	}
+
+		.log-console .alert {
+			margin-bottom: 5px;
+			padding : 5px; 
+		}
+
+/*
+Agg result
+*/
+
+.agg-result .label {
+	float: left;
+	margin : 0 2px 2px 0;
+}
+
+	.agg-result .label span{
+		cursor: pointer;
+	}
+
+.bucket-header {
+	font-weight: bold;
+}
+
+.bucket {
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.nested {
+	margin : 3px 0 3px 10px;
+}
+
+/* 
+	Context Modal
+*/
+
+.context-modal {
+
+}
+
+	.context-modal .context-ico {
+		cursor: pointer;
+		margin : 0 5px 0 0;	
+	}

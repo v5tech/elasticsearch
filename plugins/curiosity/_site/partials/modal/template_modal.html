@@ -1,0 +1,41 @@
+<div>
+	<div class="modal-header">
+		<h3 class="modal-title">
+			See global templates
+		</h3>
+	</div>
+	<div class="modal-body">
+
+	<div class="row">
+		<div class="col-sm-6" ng-if="type=='aggregation'">
+			<div class="input-group">
+				<span class="input-group-addon">{{ info.txt.template.aggregation_sub_tab.Template }}</span>
+				<select ng-model="template.selected" ui-select2 class="form-control" ng-change="changeTemplate('aggregationsTemplates',template,'currentTemplate',template.selected)">
+					<option ng-repeat="template in data.aggregationsTemplates" value="{{$index}}" >
+						{{ template.name }}
+					</option>  
+				</select>
+			</div>
+		</div>
+		<div class="col-sm-6" ng-if="type=='result'">
+			<div class="input-group">
+				<span class="input-group-addon">{{ info.txt.template.result_items_sub_tab.Template }}</span>
+				<select ng-model="template.selected" ui-select2 class="form-control" ng-change="changeTemplate('template',template,'currentTemplate',template.selected)">
+					<option ng-repeat="template in data.template" value="{{$index}}" >
+						{{ template.name }}
+					</option>  
+				</select>
+			</div>
+		</div>
+		<div class="spacer"></div>
+		<div class="margin-top col-sm-12">
+			<textarea ng-model="template.currentTemplate.value" class="form-control" rows="10">
+			</textarea>
+		</div>
+	</div>
+	
+	<div class="modal-footer">
+		<button class="btn btn-default" ng-click='ok()'>Ok</button>
+	</div>	
+
+</div>

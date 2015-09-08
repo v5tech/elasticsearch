@@ -1,0 +1,248 @@
+<html ng-app="curiosity" ng-controller="init"> 
+	<head>
+		<meta charset="utf-8" />
+		<meta content="Generic client exploring data from any elasticsearch index" name="description">
+		<title>Curiosity - Exploring BigData</title>
+		<!-- Favicon !-->
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="resources/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="resources/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="resources/favicon-16x16.png" sizes="16x16" />
+		<!-- CSS !-->    
+		<!-- Latest compiled and minified CSS -->
+		<link href="bower_components/ng-json-explorer/src/gd-ui-jsonexplorer.css" rel="stylesheet">
+		<link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="bower_components/select2/select2.css" rel="stylesheet">
+		<link href="bower_components/select2/select2-bootstrap.css" rel="stylesheet">
+		<!-- <link href="bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet"> -->
+		<link href="bower_components/leaflet/dist/leaflet.css" rel="stylesheet">
+		<link href="bower_components/leaflet-dvf/dist/css/dvf.css" rel="stylesheet">
+
+			<!-- Project specifique file !-->
+		<link href="css/curiosity.css" rel="stylesheet">
+		<link href="css/modules.css" rel="stylesheet">
+		<link href="css/workspace.css" rel="stylesheet">
+		<!-- Dependency  Libs !--> 
+		<!-- Latest compiled and minified JavaScript -->
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
+		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+		<script type="text/javascript" src="bower_components/select2/select2.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-ui-select2/src/select2.js"></script>
+		<script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+		<!-- <script type="text/javascript" src="bower_components/angular-ui-select/dist/select.min.js"></script> -->
+		<script type="text/javascript" src="bower_components/elastic.js/custom/elasticGeoBounds.min.js"></script>
+		<script type="text/javascript" src="bower_components/elasticsearch/elasticsearch.angular.min.js"></script>
+		<script type="text/javascript" src="bower_components/FileSaver/FileSaver.min.js"></script>
+		<script type="text/javascript" src="bower_components/ng-json-explorer/src/gd-ui-jsonexplorer.js"></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+   		<script type="text/javascript">
+      		  google.load("visualization", "1", {packages:["corechart", "table", "calendar"]});
+      	</script>
+      	<script type="text/javascript" src="bower_components/leaflet/dist/leaflet.js"></script>
+      	<script type="text/javascript" src="bower_components/leaflet-dvf/dist/leaflet-dvf.min.js"></script>
+      	<script type="text/javascript" src="bower_components/geohash-js/geohash.js"></script>
+
+
+		<!-- Project specique files !-->
+		<!-- Conf file !-->
+		<script type="text/javascript" src="conf.js"></script>
+		<script type="text/javascript" src="version.js"></script>
+		<script type="text/javascript" src="txt.js"></script>		
+		<!-- Service and stuff !-->
+		<script type="text/javascript" src="js/app.js"></script>
+		<!-- Conf !-->
+		<script type="text/javascript" src="js/conf/services/confFactory.js"></script>
+		<!-- ElasticSearchfunc !-->
+		<script type="text/javascript" src="js/elasticsearch/services/elasticFuncFactory.js"></script>		
+		<!-- Main Controller !-->
+		<script type="text/javascript" src="js/main/services/curiosityFactory.js"></script>
+		<script type="text/javascript" src="js/main/services/initFactory.js"></script>	
+		<script type="text/javascript" src="js/main/controllers/curiosityCtrl.js"></script>
+		<script type="text/javascript" src="js/main/controllers/initCtrl.js"></script>
+		<!-- Query !-->
+		<script type="text/javascript" src="js/query/utils/queryUtils.js"></script>
+		<script type="text/javascript" src="js/query/services/queryFactory.js"></script>
+		<script type="text/javascript" src="js/query/controllers/queryCtrl.js"></script>
+		<!-- Keyword !-->
+		<script type="text/javascript" src="js/keyword/services/keywordFactory.js"></script>
+		<script type="text/javascript" src="js/keyword/controllers/keywordCtrl.js"></script>
+		<!-- template !-->
+		<script type="text/javascript" src="js/template/services/templateFactory.js"></script>
+		<script type="text/javascript" src="js/template/controllers/templateEditionCtrl.js"></script>
+		<script type="text/javascript" src="js/template/controllers/templateModalCtrl.js"></script>
+		<!-- Result !-->
+		<script type="text/javascript" src="js/result/services/resultFactory.js"></script>
+		<script type="text/javascript" src="js/result/controllers/resultCtrl.js"></script>
+		<script type="text/javascript" src="js/result/controllers/resultAutoCtrl.js"></script>
+		<!-- Mapping !-->
+		<script type="text/javascript" src="js/mapping/utils/mappingUtils.js"></script>
+		<script type="text/javascript" src="js/mapping/services/mappingFactory.js"></script>
+		<script type="text/javascript" src="js/mapping/controllers/mappingModalCtrl.js"></script>
+		<!-- Aggregation !-->
+		<script type="text/javascript" src="js/aggregation/services/aggFactory.js"></script>
+		<script type="text/javascript" src="js/aggregation/services/aggConstructorFactory.js"></script>
+		<script type="text/javascript" src="js/aggregation/controllers/mainAggCtrl.js"></script>
+		<script type="text/javascript" src="js/aggregation/controllers/aggCtrl.js"></script>
+		<script type="text/javascript" src="js/aggregation/directives/aggResultDirectives.js"></script>
+		<!-- Context !-->
+		<script type="text/javascript" src="js/context/services/contextFactory.js"></script>
+		<script type="text/javascript" src="js/context/controllers/contextCtrl.js"></script>
+		<!-- CSV !-->
+		<script type="text/javascript" src="js/csv/services/csvFactory.js"></script>
+		<script type="text/javascript" src="js/csv/services/aggCsvFactory.js"></script>
+		<script type="text/javascript" src="js/csv/controllers/csvCtrl.js"></script>
+		<script type="text/javascript" src="js/csv/controllers/csvAggCtrl.js"></script>
+		<!-- LOG !-->
+		<script type="text/javascript" src="js/log/services/logFactory.js"></script>
+		<script type="text/javascript" src="js/log/controllers/logCtrl.js"></script>
+		<!-- Diary !-->
+		<script type="text/javascript" src="js/notebook/services/notebookFactory.js"></script>
+		<script type="text/javascript" src="js/notebook/controllers/notebookCtrl.js"></script>
+		<!-- json !-->
+		<script type="text/javascript" src="js/json/directives/jsonDirective.js"></script>
+		<!-- Charts !-->
+		<script type="text/javascript" src="js/graph/directives/barChartDirective.js"></script>
+		<script type="text/javascript" src="js/graph/directives/columnChartDirective.js"></script>
+		<script type="text/javascript" src="js/graph/directives/pieChartDirective.js"></script>
+		<script type="text/javascript" src="js/graph/directives/lineChartDirective.js"></script>
+		<!--script type="text/javascript" src="js/graph/directives/calendarChartDirective.js"></script!-->
+		<script type="text/javascript" src="js/graph/directives/comboChartDirective.js"></script>
+		<script type="text/javascript" src="js/graph/directives/scatterChartDirective.js"></script>
+		<!--<script type="text/javascript" src="js/graph/directives/diffChartDirective.js"></script>!-->
+		<script type="text/javascript" src="js/graph/misc/utils.js"></script>
+		<script type="text/javascript" src="js/maps/directives/mapGeoHash.js"></script>
+		<!-- ModuleManager !-->
+		<script type="text/javascript" src="js/moduleManager/services/moduleManagerFactory.js"></script>
+		<script type="text/javascript" src="js/moduleManager/controllers/moduleManagerCtrl.js"></script>
+		<script type="text/javascript" src="js/moduleManager/directives/moduleBlockDirective.js"></script>
+		<!-- Layout  !-->
+		<script type="text/javascript" src="js/layout/services/layoutFactory.js"></script>
+		<script type="text/javascript" src="js/layout/controllers/workspacesCtrl.js"></script>
+		<script type="text/javascript" src="js/layout/controllers/layoutSelectorCtrl.js"></script>
+		<script type="text/javascript" src="js/layout/controllers/cardCtrl.js"></script>
+		<script type="text/javascript" src="js/layout/controllers/cardModalCtrl.js"></script>
+		<!-- Filters !-->
+		<script type="text/javascript" src="js/filters/services/filtersFactory.js"></script>
+		<script type="text/javascript" src="js/filters/controllers/filtersCtrl.js"></script>
+		<!-- Url !-->
+		<script type="text/javascript" src="js/url/services/urlFactory.js"></script>
+		<!-- Document !-->
+		<script type="text/javascript" src="js/doc/services/docFactory.js"></script>
+		<script type="text/javascript" src="js/doc/controllers/docCtrl.js"></script>
+		<!-- History !-->
+		<script type="text/javascript" src="js/history/services/historyFactory.js"></script>
+		<script type="text/javascript" src="js/history/controllers/historyCtrl.js"></script>
+
+	</head>
+	<body ng-controller="curiosityCtrl" ng-class="{'header-hidden':!showHeader,'toolbar-hidden':hideToolbar}">
+		<div ng-class="{'unlock':!moduleManagerData.lock}">
+			<div id="loading-image" ng-show="data.loading">
+				<span><img src="resources/ajax-loader.gif" id="loading-image"></span>
+			</div>
+			<div ng-show="showHeader">
+				<div id="header" ng-include="'partials/common/header.html'"></div>
+			</div>
+			
+			<div ng-show="data.tab == 0" ng-include="'partials/layout/workspaces.html'" class="content">
+			</div>
+						
+			<!--<div ng-include="'partials/context/context_selector_tab.html'">
+			</div>!-->
+
+			<div class="workspace-selector">
+				<div ng-click="hideWSS = !hideWSS" class="hider">
+					<span class="glyphicon" ng-class="{'glyphicon-chevron-right':!hideWSS,'glyphicon-chevron-left':hideWSS}">
+					</span>
+				</div>
+				<div ng-show="!hideWSS" class="workspace-item" ng-repeat="ws in layoutData.workspaces" ng-click="goToWorkspace($index)" 
+					title="Go To {{ws.displayName}}" ng-class="{'selected':$index == layoutData.idx}">
+				</div>
+				<div class="spacer"></div>
+			</div>
+
+			<div class="btn-show-header" ng-click="showHeader = !showHeader" title="Show/Hide header">		
+				<span class="glyphicon" 
+					ng-class="{'glyphicon-chevron-down':!showHeader,'glyphicon-chevron-up': showHeader}">
+				</span>
+			</div>
+
+			<div class="control cleft blue" ng-click="prevWorkspace()" title="Prev Workspace">
+				<span class="glyphicon glyphicon-arrow-left"></span>	
+			</div>
+
+			<div class="control cright blue" ng-click="nextWorkspace()" title="Next Workspace">
+				<span class="glyphicon glyphicon-arrow-right" ></span>					
+			</div>
+
+			<div class="btn-hide-toolbar" ng-class="{'toolbar-hidden':hideToolbar}" ng-click="hideToolbar = !hideToolbar" title="Hide/Show Toolbar">
+					<span class="glyphicon" 
+					ng-class="{'glyphicon-chevron-down':!hideToolbar,'glyphicon-chevron-up':hideToolbar}">
+				</span>		
+			</div>
+			
+			<div class="toolbar-bottom" ng-hide="hideToolbar">
+				<div class="ico-container">
+					<div ng-click="search()" title="Search" class="ico blue">
+						<span class="glyphicon glyphicon-search">
+						</span>
+					</div>
+					<div ng-click="loadContext('basicSearch')" title="Home (basic search context)" class="ico black">
+						<span class="glyphicon glyphicon-home">
+						</span>
+					</div>
+					<div ng-click="loadContext('exploreContext')" title="Open the context list and choose one" class="ico brown">
+						<span class="glyphicon glyphicon-th-list">
+						</span>
+					</div>
+					<div ng-click="manageKeyword()" title="Open Keywords window " class="ico yellow">
+						<span class="glyphicon" 
+							ng-class="{'glyphicon-font':data.tab != 2, 'glyphicon-home': data.tab == 2}">
+						</span>
+					</div>
+					<div ng-click="manageTemplate()" title="Open Templates window" class="ico green">
+						<span class="glyphicon glyphicon-align-justify">
+						</span>
+					</div>
+					
+					<div class="ico red context-button">
+						<span class="glyphicon glyphicon-plus" ng-click="newWorkspace()" title="New Workspace"></span>
+						<div class="ico-hidden">
+							<span class="glyphicon glyphicon-cog" ng-click="modifyWorkspace()" title="Edit Workspace"></span>
+							<span class="glyphicon glyphicon-trash" ng-click="removeWorkspace()" title="Remove Workspace"></span>
+						</div>
+					</div>
+
+					<div ng-click="moduleManagerData.lock = !moduleManagerData.lock" title="Lock/Unlock modules" class="ico violet">
+						<span class="glyphicon" ng-class="{'glyphicon-lock':!moduleManagerData.lock,'glyphicon-fullscreen':moduleManagerData.lock}">
+						</span>
+					</div>
+					
+					<div class="ico context-button"> 
+						<span class="glyphicon glyphicon-dashboard blue" ng-class="{'rotating':contextData.updateStatus == 'updating'}" title="Manage your dashbord">
+						</span>
+						<div class="ico-hidden">
+							<span class="glyphicon glyphicon-folder-open blue" ng-click="manageContext()" title="Manage Context">
+							</span>
+							<span class="glyphicon glyphicon-floppy-save blue" ng-click="newContext()"title="Save As">
+							</span>
+							<span class="glyphicon glyphicon-floppy-disk blue" ng-class="{'rotating':contextData.updateStatus == 'updating'}" title="Save your context" ng-click="quickSaveContext()">
+							</span>							
+						</div>
+					</div>
+
+					<div class="ico" title="Trash (drop module here to remove them)">
+						<span class="glyphicon glyphicon-trash orange"></span>
+						<div moduleblock name="trash" type="trash" class="trash"></div>
+					</div>
+
+					<div class="spacer"></div>
+				</div>
+			</div>
+			<div class="spacer"></div>
+		</div>
+	</body>
+</html>

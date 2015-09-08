@@ -1,0 +1,34 @@
+<form class="agg_option">
+
+	<div ng-include="'partials/aggregation_module/aggSettingsHeader.html'"></div>
+
+	<div class="input-group margin-top">
+		<span class="input-group-addon">From :</span>
+		<input class="form-control" type="number"  ng-model="curAgg.from" min="0">
+	</div>
+
+	<div class="input-group margin-top">
+		<span class="input-group-addon">Size :</span>
+		<input class="form-control" type="number"  ng-model="curAgg.size" min="0">
+	</div>
+
+	<div class="input-group margin-top">
+		<span class="input-group-addon">Sort :</span>
+		<input class="form-control" type="text" ng-model="curAgg.sort">
+	</div>
+
+	<div class="input-group margin-top">
+		<span class="input-group-addon">Include :</span>
+		<input class="form-control" type="text" ng-model="curAgg._source.include">
+	</div>
+
+	{{curAgg}}
+
+	<div class="margin-top">
+		<button class="btn btn-default" ng-click="validateAgg(curAgg)">
+			<span ng-if="curAgg.validate">Deactivate</span>
+			<span ng-if="!curAgg.validate">Activate</span>
+		</button>
+	</div>
+
+</form>

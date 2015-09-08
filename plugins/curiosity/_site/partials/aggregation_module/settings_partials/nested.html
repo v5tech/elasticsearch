@@ -1,0 +1,20 @@
+<form class="agg_option">
+
+	<div ng-include="'partials/aggregation_module/aggSettingsHeader.html'"></div>
+
+	<div class="input-group margin-top" ng-class="{'has-error':curAgg.path?false:true}">
+		<span class="input-group-addon">Path :</span>
+		<input class="form-control" type="text" ng-model="curAgg.path">
+	</div>
+
+	<div class="margin-top">
+		<button class="btn btn-default" ng-click="validateAgg(curAgg)">
+			<span ng-if="curAgg.validate">Deactivate</span>
+			<span ng-if="!curAgg.validate">Activate</span>
+		</button>
+		<button class="btn btn-default" ng-click="addNestedAgg(curAgg)">Add Nested Agg</button>
+	</div>
+
+	<div ng-include="'partials/aggregation_module/aggSettingsNested.html'"></div>
+
+</form>

@@ -1,0 +1,35 @@
+<div class="agg-result">
+	<div class="panel panel-primary panel-request">
+		<div class="panel-heading">
+			<div>
+				<h3 class="panel-title">
+					{{ agg.__ref__.displayName }}
+				</h3>
+				<span ng-repeat="filter in agg.__ref__.aggfilters" class="label label-info">
+					{{ filter.data.term }} 
+					<span class="glyphicon glyphicon-remove" ng-click="removeFilter(agg, $index)"></span>
+				</span>
+				<div class="spacer"></div>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div ng-repeat="bucket in agg.buckets">
+				<span class="aggregation-items"> 
+					<label>
+						<span 
+						ng-click="addFilter(agg, {type:'Terms', data:{field:agg.__ref__.field, term:bucket.key }})" class="link">
+							{{bucket.key_as_string ? bucket.key_as_string : bucket.key}} :
+						</span>
+					</label>
+					{{bucket.doc_count}}
+				</span>
+				<div ng-repeat="(key, agg) in bucket">
+					<div ng-if="isAgg(key)">
+						<div ng-include="'partials/aggregation_module/aggResult.html'"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
