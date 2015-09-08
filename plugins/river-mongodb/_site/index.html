@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" x-ng-app="mongoDBRiverApp">
+  <head>
+    <meta charset="utf-8">
+    <title>MongoDB River Plugin for ElasticSearch</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-resource.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.2.1/lodash.min.js"></script>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+  <div x-ng-controller="MainCtrl" class="container">
+      <div class="row">
+      <div class="col-md-12">
+      <div>
+        <h3>MongoDB River Administration</h3>
+        <span class="btn btn-small pull-right" x-ng-class="{ 'btn-info': refresh.enabled, 'btn-warning': !refresh.enabled }" 
+          x-ng-click="updateTimer(refresh.enabled)">{{ refresh.label }}</span>
+        <span class="btn btn-small pull-right" x-ng-class="{ 'btn-info': next.enabled, 'btn-default disabled': !next.enabled }" 
+          x-ng-click="nextPage()" style="margin-right: 10px;">{{ next.label }}</span>
+        <span class="btn btn-small pull-right" x-ng-class="{ 'btn-info': prev.enabled, 'btn-default disabled': !prev.enabled }" 
+          x-ng-click="prevPage()" style="margin-right: 10px;">{{ prev.label }}</span>
+      </div>
+        <tabset>
+          <tab heading="Home">
+            <div class="content">
+              <div x-ng-repeat="river in rivers">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h2 class="panel-title" x-ng-switch="river.status">
+                      {{ river.name }}
+                      <span x-ng-switch-when="RUNNING" class="label label-success">{{river.status}}</span>
+                      <span x-ng-switch-when="STOPPED" class="label label-warning">{{river.status}}</span>
+                      <span x-ng-switch-default class="label label-danger">{{river.status}}</span>
+                    </h2>
+                  </div>
+                  <div class="panel-body">
+                    Last Replicated - {{ river.lastTimestamp ? (river.lastTimestamp | date:'yyyy-MM-dd HH:mm:ss Z') : 'never' }}<br/>
+                    Documents Indexed - {{ river.indexCount }}
+                    <hr />
+                    <div>
+                      <button class="btn btn-small btn-default" ng-show="!getUISettings(river.name).showSettings" ng-click="getUISettings(river.name).showSettings = true" href=>Show settings</button>
+                      <button class="btn btn-small btn-default" ng-show="getUISettings(river.name).showSettings" ng-click="getUISettings(river.name).showSettings = false">Hide settings</button>
+                      <hr ng-show="getUISettings(river.name).showSettings"/>
+                      <pre collapse="!getUISettings(river.name).showSettings">{{ toString(river.settings) }}</pre>
+                    </div>
+                    <hr/>
+                    <span x-ng-if="river.status == 'RUNNING'" class="btn btn-small btn-danger" x-ng-click="stop(river.name)">Stop</span>
+                    <span x-ng-if="river.status != 'RUNNING'" class="btn btn-small btn-success" x-ng-click="start(river.name)">Start</span>
+                    <span x-ng-if="river.status != 'RUNNING'" class="btn btn-small btn-danger pull-right" x-ng-click="delete(river.name)">Delete</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </tab>
+            <!--
+            <tab heading="Logging">Logging</tab>
+            --> 
+          </tabset>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="scripts/app.js"></script>
+  </body>
+</html>

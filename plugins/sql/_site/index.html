@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Elasticsearch-sql client</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+
+  </head>
+
+  <body ng-app="elasticsearchSqlApp" ng-controller="MainController">
+
+    <!-- Top navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          
+          <a class="navbar-brand" href="#">Elasticsearch-sql</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li id="help_btn" data-toggle="modal" data-target="#help_popup">
+              <a title="Help" href="#" data-placement="bottom">Help</a>
+            </li>
+
+          </ul>
+
+          <form class="navbar-form navbar-right">
+            <input type="text" id="urlBox" class="form-control" ng-model="url" />
+          </form>
+        </div>
+      </div>
+    </nav>
+
+
+
+    <!-- Help modal -->
+    <div id="help_popup" tabindex="-1" class="modal fade" data-keyboard="true">
+        <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Help</h3>
+        </div>
+        <div class="modal-body">
+          <h4>SQL queries</h4>
+
+          <p>
+            Write your SQL query and run it against elasticsearch. The results will be displayed in the table. You can use autocomple to write
+            your queries easier.
+          </p>
+
+          <div class="keyboardSection">
+            <h4>Keyboard tips</h4>
+            <dl class="dl-horizontal">
+              <dt></dt>
+              <dd><strong>General editing</strong></dd>
+
+              <dt>Ctrl + Space</dt>
+              <dd>Open Auto complete</dd>
+              <dt>Ctrl + Enter</dt>
+              <dd>Submit query</dd>
+
+            </dl>
+            <dl class="dl-horizontal">
+              <dt></dt>
+              <dd><strong>When auto-complete is visible</strong></dd>
+              <dt>Arrows</dt>
+              <dd>Use arrows to select the term to auto complete.</dd>
+              <dt>Enter/Tab</dt>
+              <dd>Select the currently selected auto-complete menu</dd>
+              <dt>Esc</dt>
+              <dd>Close auto-complete menu</dd>
+            </dl>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <a href="#" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Got it</a>
+        </div>
+      </div>
+    </div>
+    </div>
+
+
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-11 col-md-offset-1 main">
+          <h1 class="page-header">SQL Query</h1>
+
+          <!-- Query area -->
+          <div class="search-area">
+          	<textarea id="queryTextarea">SELECT * FROM myindex</textarea> 
+  	        <button type="button" ng-click="search()" id="searchButton" class="btn btn-success search-button" ng-bind-html="getButtonContent(searchLoading,'Search')" ng-cloak>
+            </button>
+
+            <button type="button" ng-click="explain()" id="explainButton" class="btn btn-info explain-button" ng-bind-html="getButtonContent(explainLoading,'Explain')" ng-cloak>
+            </button>
+  	      </div>
+
+          <!-- Error box, displayed only on errors -->
+          <div id="errorBox" ng-hide="error == ''" class="alert alert-danger fadein" role="alert" ng-cloak>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            <span ng-model="error">{{error}}</span>
+          </div>
+
+          <!-- Results area, displayed after search -->
+          <div class="fadein" ng-show="resultsColumns.length > 0" ng-cloak>
+          	<div>
+            	<h2 class="sub-header">Results</h2>             		
+         		</div>
+
+            <div class="table-responsive">
+              <table class="table table-striped" id="searchResult">
+                <thead>
+                  <tr id="tableHead">
+                    <th ng-repeat="column in resultsColumns">{{column}}</th>
+                  </tr>
+                </thead>
+                <tbody id="tableBody">
+                  <tr ng-repeat="row in resultsRows">
+                    <td ng-repeat="column in resultsColumns">
+                      {{row[column]}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <button type="button" ng-click="exportCSV()" id="exportCSV" class="btn btn-primary btn-sm" ng-cloak>Export CSV <span class="glyphicon glyphicon-share"></span></button>
+          </div>
+
+          <!-- explan area , displayed after explan -->
+           <div class="fadein" ng-show="resultExplan" ng-cloak>
+            <h2 class="sub-header">Results</h2>
+            <div class="table-responsive">
+              <textarea id="explanResult"></textarea> 
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Jquery include -->
+    <script src="vendor/jquery/jquery-2.1.1.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- CodeMirror includes -->
+  	<script src="vendor/codemirror/lib/codemirror.js"></script>
+  	<link rel="stylesheet" href="vendor/codemirror/lib/codemirror.css">
+  	<script src="vendor/codemirror/mode/sql/sql.js"></script>
+    <script src="vendor/codemirror/mode/javascript/javascript.js"></script>
+  	<link rel="stylesheet" href="vendor/codemirror/addon/hint/show-hint.css" />
+  	<script src="vendor/codemirror/addon/hint/show-hint.js"></script>
+  	<script src="vendor/codemirror/addon/hint/sql-hint.js"></script>
+
+    <!-- AngularJS -->
+    <script src="vendor/angularjs/angular.min.js"></script>
+    <script src="vendor/angularjs/angular-animate.min.js"></script>
+    <script src="vendor/angularjs/angular-sanitize.min.js"></script>
+
+    <script src="editor.js"></script>
+    <script src="query.js"></script>
+    <script src="controllers.js"></script>
+
+  	<script type="text/javascript">      
+
+      // show errorText in error box.
+      function errorOccured(errorText) {
+        if(errorText == undefined) {
+          errorText = "Error occured! response is not avalible."
+        }
+
+        $("#errorBoxText").html(errorText)
+        $("#errorBox").show('slow')
+      }
+
+
+  	</script>
+
+  </body>
+</html>
