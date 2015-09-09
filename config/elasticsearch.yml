@@ -401,3 +401,9 @@ index:
           type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
         
 index.analysis.analyzer.default.type : "ansj_index"
+
+# shield audit logs
+shield.audit.enabled: true
+
+# marvel audit
+marvel.agent.exporter.es.hosts: [ "http://admin:sysadmin@127.0.0.1:9200", "http://admin:sysadmin@192.168.0.201:9200"]
