@@ -389,6 +389,10 @@
 index:
   analysis:
     analyzer:
+      index_ansj:
+          type: ansj_index
+      query_ansj:
+          type: ansj_query
       ik:
           alias: [news_analyzer_ik,ik_analyzer]
           type: org.elasticsearch.index.analysis.IkAnalyzerProvider
@@ -396,4 +400,4 @@ index:
           alias: [news_analyzer, mmseg_analyzer]
           type: org.elasticsearch.index.analysis.MMsegAnalyzerProvider
         
-index.analysis.analyzer.default.type : "mmseg"
+index.analysis.analyzer.default.type : "ansj_index"
