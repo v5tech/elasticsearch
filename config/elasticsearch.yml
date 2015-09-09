@@ -407,3 +407,22 @@ shield.audit.enabled: true
 
 # marvel audit
 marvel.agent.exporter.es.hosts: [ "http://admin:sysadmin@127.0.0.1:9200", "http://admin:sysadmin@192.168.0.201:9200"]
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
+
+# script
+script.engine.groovy.file.aggs: on
+script.engine.groovy.file.mapping: on
+script.engine.groovy.file.search: on
+script.engine.groovy.file.update: on
+script.engine.groovy.file.plugin: on
+script.engine.groovy.indexed.aggs: on
+script.engine.groovy.indexed.mapping: on
+script.engine.groovy.indexed.search: on
+script.engine.groovy.indexed.update: on
+script.engine.groovy.indexed.plugin: on
+script.engine.groovy.inline.aggs: on
+script.engine.groovy.inline.mapping: on
+script.engine.groovy.inline.search: on
+script.engine.groovy.inline.update: on
+script.engine.groovy.inline.plugin: on
